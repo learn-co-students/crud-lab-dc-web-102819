@@ -1,20 +1,25 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux'
 
 class Review extends Component {
 
   render() {
-    const { review } = this.props
+    const { review, remove } = this.props
 
+    
     return (
       <div>
         <li>
           {review.text}
         </li>
-        <button> X </button>
+        <button onClick={() => remove(review.id)}> X </button>
       </div>
     );
   }
-
 };
 
-export default Review;
+const mapDispatchToProps = dispatch => ({
+  remove: (id) => dispatch({type: 'DELETE_REVIEW', id})
+})
+
+export default connect(null, mapDispatchToProps)(Review);
